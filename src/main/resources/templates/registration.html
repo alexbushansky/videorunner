@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: headerFragment">
+    <title id="pageTitle">Registration</title>
+</head>
+<body>
+<div th:insert="~{fragments/nav :: nav-default}"></div>
+<div class="container-fluid">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+    <form th:action="@{/registration}" th:object="${user}" method="post">
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" th:field="*{email}" id="exampleInputEmail1" placeholder="Enter email"
+                   th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? is-invalid">
+            <div class="invalid-feedback">
+                <ul class="text-danger" th:each="error: ${#fields.errors('email')}">
+                    <li>
+                        <p class="error-message" th:text="${error}"></p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="InputName">Name</label>
+            <input id = "InputName" th:field ="*{name}" type="text" class="form-control"
+                   th:classappend="${not #lists.isEmpty(#fields.errors('name'))} ? is-invalid"
+                   placeholder="Name">
+            <div class="invalid-feedback">
+                <ul class="text-danger" th:each="error: ${#fields.errors('name')}">
+                    <li>
+                        <p class="error-message" th:text="${error}"></p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input id = "exampleInputPassword1" th:field ="*{password}" type="password" class="form-control"
+                   th:classappend="${not #lists.isEmpty(#fields.errors('password'))} ? is-invalid"
+                   placeholder="Password">
+            <div class="invalid-feedback">
+                <ul class="text-danger" th:each="error: ${#fields.errors('password')}">
+                    <li th:each="message : ${error.split(',')}">
+                        <p class="error-message" th:text="${message}"></p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <label for="exampleInputPassword2">Confirm Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword2"
+                   th:field="*{confirmPassword}" placeholder="Confirm Password"
+                   th:classappend="${not #lists.isEmpty(#fields.errors('confirmPassword'))} ? is-invalid">
+            <div class="invalid-feedback">
+                <ul class="text-danger" th:each="error: ${#fields.errors('confirmPassword')}">
+                    <li>
+                        <p class="error-message" th:text="${error}"></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Registration</button>
+    </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

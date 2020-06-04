@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: headerFragment">
+    <title id="pageTitle">Main</title>
+</head>
+<body>
+<div th:insert="~{fragments/nav :: nav-default}"></div>
+
+<div class="container-fluid mt-4">
+    <div class="container">
+        <p th:text="'Hello, ' + ${name} + '!'" />
+    </div>
+</div>
+</body>
+</html>

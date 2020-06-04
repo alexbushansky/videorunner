@@ -1,0 +1,32 @@
+<nav xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="nav-default"
+     class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand text-white">VideoRunner</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                                <a class="nav-link text-white" th:href="@{/all-video}">Videos </a>
+                        </li>
+
+                        <li class="nav-item active">
+                                <a class="nav-link text-white" th:href="@{/add-video}">Add Video </a>
+                        </li>
+                </ul>
+
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Sign Out"/>
+                </form>
+
+                <span sec:authorize="isAnonymous()" class="right-border">
+                        <a class="btn btn-outline-success my-2 my-sm-0"  th:href="@{/login}">Log In</a>
+                </span>
+
+                <span sec:authorize="isAnonymous()" class="right-border">
+                        <a class="btn btn-outline-info my-2 my-sm-0"  th:href="@{/registration}">Registration</a>
+                </span>
+
+        </div>
+</nav>

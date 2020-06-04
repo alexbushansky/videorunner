@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/head :: headerFragment"></th:block>
+    <link  rel="stylesheet" th:href="@{https://cdn.plyr.io/3.5.6/plyr.css}"/>
+    <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
+    <title id="pageTitle" th:text="${video.getName()}">3123123</title>
+
+
+</head>
+<body>
+<div th:insert="~{fragments/nav :: nav-default}"></div>
+<div class="container-fluid">
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="col-md-12 text-align-center">
+                <video id="player"  th:attr = "data-poster=@{../uploads/{video}(video=${video.getFrontImage()})}" playsinline controls>
+
+                    <source th:src="@{../uploads/{video}(video=${video.getPath()})}" type="video/mp4" size="360"/>
+                    <source th:src="@{../uploads/{video}(video=${video.getPath()})}" type="video/mp4" size="720"/>
+
+                </video>
+                </div>
+
+                <div class="col-md-6">
+                    <h4 th:text="${video.getName()}">Video</h4>
+                </div>
+                <div class="div-col-md6"></div>
+                <hr>
+                <div class="col-md-6">
+                  author:  <a th:text="${video.getUser().getName()}">author:</a>
+                </div>
+                <div class="col-md-6" th:text="${video.getDescribe()}">
+
+                </div>
+                <br>
+                <div class="col-md-12">
+                    <form th:action="@{/add-comment/{video}(video=${video.getId()})}" method="post">
+
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Add Comment" name="text" autofocus>
+                                </textarea>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                 <input type="submit" value="Add Comment" class="btn btn-primary">
+                            </div>
+
+
+
+                    </form>
+                </div>
+                <div class="col-md-12" th:if="${not #lists.isEmpty(comments)}" th:each="comment: ${comments}">
+                        <div th:text="${comment.getUser().getName()}">
+                        </div>
+                            <div th:text="${comment.getText()}">
+                            </div>
+                </div>
+                <div class="col-md-12" th:if="${#lists.isEmpty(video.getComments())}">
+                    <h4>No Comments</h4>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const player = new Plyr('#player', {
+        title: 'Название',
+        settings:['quality', 'speed', 'loop'],
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+*.class
+*.jar
+target
+.idea
+src/test
+src/main/resources/uploads
+*.iml
